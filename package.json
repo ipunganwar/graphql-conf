@@ -1,0 +1,25 @@
+{
+  "name": "ekantin-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lokiloko@bitbucket.org/ekantin-id/ekantin-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/ekantin-id/ekantin-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.10"
+  }
+}
