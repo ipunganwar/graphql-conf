@@ -1,39 +1,38 @@
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLList = require('graphql').GraphQLList;
-var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLID = require('graphql').GraphQLID;
-var UserModel = require('../../models/modelsExample');
-var userType = require('../types/typeExample').userType;
+// Graphql Data type
+const GraphQLObjectType = require('graphql').GraphQLObjectType;
+
+// Mobile Query List
+const query_mobile = require('./queryMobile')
+
+//Tablet Query List
+const query_tablet = require('./queryTablet')
+
+// Tablet
+const findAllOutlet = require('./outletQuery').findAllOUtlet
+const findOutletById = require('./outletQuery').findOutletById
+const findAllMenu = require('./menuQuery').findAllMenu
+const findMenuByIdOutlet = require('./menuQuery').findMenuByIdOutlet
+const findAllTransaksi = require('./transaksiQuery').findAllTransaksi
+const findPesananByOutlet = require('./transaksiQuery').findPesananByOutlet
+const findPesananByOutletAndUser = require('./transaksiQuery').findPesananByOutletAndUser
+const findNotifikasiByOutletId = require('./notifikasiQuery').findNotifikasiByOutletId
 
 // Query
 exports.queryType = new GraphQLObjectType({
   name: 'Query',
   fields: function () {
     return {
-      users: {
-        type: new GraphQLList(userType),
-        resolve: function () {
-          const users = UserModel.find().exec()
-          if (!users) {
-            throw new Error('Error')
-          }
-          return users
-        },
-        description: 'Get List of All Users'
-      },
-      userById: {
-        type: userType,
-        args: {id: {type: new GraphQLNonNull(GraphQLID)}},
-        resolve: function (parentValue, args) {
-          const user = UserModel.findOne({_id: args.id}).exec()
-          if (!user) {
-            throw new Error('Error')
-          }
-          return user
-        },
-        description: 'Get User by Id'
-      }
+      ...query_mobile,
+      ...query_tablet,
+      outlets: findAllOutlet,
+      outletById: findOutletById,
+      menus: findAllMenu,
+      menusByIdOutlet: findMenuByIdOutlet,
+      transaksis: findAllTransaksi,
+      transaksisByIdOutlet: findPesananByOutlet,
+      transaksisByIdOutletAndIdPemesan: findPesananByOutletAndUser,
+      notifikasisByOutletId: findNotifikasiByOutletId
     }
   },
-  description: 'tutururuuu'
+  description: 'List of Available Query'
 });
